@@ -7,6 +7,16 @@
 //
 
 #import "LibraryAPI.h"
+#import "PersistencyManager.h"
+#import "HTTPClient.h"
+
+@interface LibraryAPI () {
+    PersistencyManager *persistencyManager;
+    HTTPClient *httpClient;
+    BOOL isOnline;
+}
+
+@end
 
 @implementation LibraryAPI
 
@@ -23,6 +33,17 @@
         _sharedInstance = [[LibraryAPI alloc] init];
     });
     return _sharedInstance;
+}
+
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        persistencyManager = [[PersistencyManager alloc] init];
+        httpClient = [[HTTPClient alloc] init];
+        isOnline = NO;
+    }
+    return self;
 }
 
 @end
